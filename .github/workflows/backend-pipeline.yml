@@ -1,0 +1,68 @@
+name: Backend CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Buildando o backend
+        run: npm run build
+      
+      - name: Arquivar build
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
+      - name: Executando Lint
+        run: |
+          # Executando ESLint com limite de 5 warnings
+          npx eslint --max-warnings=5 "src/**/*.{js,ts}" -f json > eslint-results.json || true
+          
+          # Contando o número de warnings
+          WARNING_COUNT=$(jq '[.[] | select(.severity == 1)] | length' eslint-results.json)
+          echo "Total de warnings encontrados: $WARNING_COUNT"
+          
+          # Checando se o número de warnings excede o limite
+          if [ "$WARNING_COUNT" -gt 5 ]; then
+            echo "❌ Erro: Foram encontrados $WARNING_COUNT warnings, excedendo o limite permitido de 5"
+            exit 1
+          else
+            echo "✅ Sucesso: Foram encontrados $WARNING_COUNT warnings, dentro do limite permitido de 5"
+          fi
+
+  deploy_dev:
+    name: Deploy para ambiente de desenvolvimento
+    needs: build_backend
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+    environment:
+      name: dev
+      url: https://dev.xxx.com
+
+  deploy_prod:
+    name: Deploy para ambiente de produção
+    needs: build_backend
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://prd.xxx.com
