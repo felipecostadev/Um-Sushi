@@ -23,6 +23,34 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Verificação de segurança
+        run: |
+          echo "🔎 Executando verificação de segurança com npm audit..."
+          npm audit --json > npm-audit.json || true
+          
+          # Verificando vulnerabilidades críticas ou altas
+          HIGH_COUNT=$(jq '[.vulnerabilities[] | select(.severity == "high")] | length' npm-audit.json || echo "0")
+          CRITICAL_COUNT=$(jq '[.vulnerabilities[] | select(.severity == "critical")] | length' npm-audit.json || echo "0")
+          
+          echo "Vulnerabilidades encontradas: $CRITICAL_COUNT críticas, $HIGH_COUNT altas"
+          
+          # Falha se existirem vulnerabilidades críticas
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
+            echo "❌ Erro: Foram encontradas $CRITICAL_COUNT vulnerabilidades críticas"
+            echo "Detalhes das vulnerabilidades críticas:"
+            jq '.vulnerabilities[] | select(.severity == "critical")' npm-audit.json
+            exit 1
+          fi
+          
+          # Aviso se existirem vulnerabilidades altas, mas continua o pipeline
+          if [ "$HIGH_COUNT" -gt 0 ]; then
+            echo "⚠️ Aviso: Foram encontradas $HIGH_COUNT vulnerabilidades altas"
+            echo "Detalhes das vulnerabilidades altas:"
+            jq '.vulnerabilities[] | select(.severity == "high")' npm-audit.json
+          fi
+          
+          echo "✅ Verificação de segurança concluída"  
+
       - name: Buildando o backend
         run: npm run build
       
