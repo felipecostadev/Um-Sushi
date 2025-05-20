@@ -15,7 +15,6 @@ jobs:
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
-        
         with:
           node-version: '18'
           cache: 'npm'
@@ -50,6 +49,40 @@ jobs:
           fi
           
           echo "✅ Verificação de segurança concluída"  
+
+      - name: Testes unitários
+        run: |
+          echo "🧪 Executando testes unitários com geração de cobertura..."
+          npm test
+          
+          if [ -d "coverage" ]; then
+            
+            if [ -f "coverage/coverage-summary.json" ]; then
+              COVERAGE_FILE="coverage/coverage-summary.json"
+              COVERAGE_TOTAL=$(cat $COVERAGE_FILE | grep -o '"lines":{"total":[0-9],"covered":[0-9],"skipped":[0-9],"pct":[0-9.]' | grep -o 'pct":[0-9.]' | grep -o '[0-9.]')
+            elif [ -f "coverage/lcov-report/index.html" ]; then
+              COVERAGE_TOTAL=$(grep -o 'Lines.%' coverage/lcov-report/index.html | grep -o '[0-9.]')
+            elif [ -f "coverage-summary.txt" ]; then
+              COVERAGE_TOTAL=$(grep -o 'Lines.%' coverage-summary.txt | grep -o '[0-9.]')
+            else
+              echo "❌ Erro: Não foi possível encontrar um relatório de cobertura conhecido"
+              echo "Por favor, verifique a configuração dos testes para gerar relatórios de cobertura"
+              exit 1
+            fi
+            
+            echo "📊 Cobertura de linhas de código: $COVERAGE_TOTAL%"
+            
+            if (( $(echo "$COVERAGE_TOTAL < 75" | bc -l) )); then
+              echo "❌ Erro: Cobertura de testes abaixo do limite mínimo de 75% (atual: $COVERAGE_TOTAL%)"
+              exit 1
+            else
+              echo "✅ Cobertura de testes aprovada: $COVERAGE_TOTAL% (mínimo: 75%)"
+            fi
+          else
+            echo "❌ Erro: Diretório de cobertura não encontrado"
+            echo "Certifique-se de que seus testes estão configurados para gerar relatórios de cobertura"
+            exit 1
+          fi
 
       - name: Buildando o backend
         run: npm run build
