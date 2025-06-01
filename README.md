@@ -114,3 +114,14 @@ Este projeto foi desenvolvido por alunos do curso de Engenharia de Software da U
 - Implementar boas práticas de autenticação e autorização
 - Desenvolver habilidades de trabalho em equipe e organização de código
 - Simular um ambiente real de desenvolvimento de software
+
+### Atomic Design com Next.js
+Este projeto implementa a metodologia Atomic Design criada por Brad Frost em uma aplicação Next.js, proporcionando uma arquitetura de componentes escalável e organizada.
+#### O que é Atomic Design?
+Atomic Design é uma metodologia que organiza componentes em 5 níveis hierárquicos, inspirada na química:
+
+- Átomos: Elementos básicos (botões, inputs, textos)
+- Moléculas: Combinação de átomos (campo de busca, tag de preço)
+- Organismos: Grupos de moléculas (header, card de produto)
+- Templates: Estruturas de página (layouts)
+- Pages: Templates com conteúdo real
