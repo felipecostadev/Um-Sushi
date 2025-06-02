@@ -34,6 +34,12 @@ app.post('/cadastro', (req, res) => {
     return res.status(400).json({ mensagem: 'Preencha todos os campos obrigatórios.' });
   }
 
+  // verificar a duplicidade de e-mails
+  const emailExistente = cadastros.find(cadastro => cadastro.email === email);
+  if (emailExistente) {
+    return res.status(409).json({ mensagem: 'E-mail já cadastrado. Use outro e-mail.' });
+  }
+
 const novoCadastro = {
     id: nextId++,
     nome,
@@ -65,6 +71,7 @@ const novoCadastro = {
  app.get('/cadastro', (req, res) => {
   res.status(200).json(cadastros); 
 });
+
 //para pegar dados de um item//
 app.put('/cadastro/:id', (req, res) => {
   const { id } = req.params;
@@ -92,6 +99,14 @@ app.put('/cadastro/:id', (req, res) => {
 
   if (index === -1) {
     return res.status(404).json({ mensagem: 'Cadastro não encontrado.' });
+  }
+
+  // verificando se o novo e-mail já está em uso por outro cadastro
+  if (dadosAtualizados.email) {
+    const emailEmUso = cadastros.find(c => c.email === dadosAtualizados.email && c.id !== parseInt(id));
+    if (emailEmUso) {
+      return res.status(409).json({ mensagem: 'E-mail já está em uso por outro cadastro.' });
+    }
   }
 
 cadastros[index] = { ...cadastros[index], ...dadosAtualizados };
