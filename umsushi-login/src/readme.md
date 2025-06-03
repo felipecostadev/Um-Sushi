@@ -12,9 +12,6 @@ Define as rotas relacionadas ao login, como:
 - `POST /register`
 - `GET /me`
 
-# Middlewares
-Contém funções que são executadas entre a requisição e o controlador.
-
 #  Models
 Modelos de dados da aplicação. Neste caso, inclui o modelo de `User`, com campos como email, senha (hash) e permissões.
 
