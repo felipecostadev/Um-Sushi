@@ -1,4 +1,4 @@
-#  Um Sushi - Tela de Login (Backend
+#  Um Sushi - Tela de Login (Backend)
 
 Este projeto é a base backend para a funcionalidade de login do sistema **Um Sushi**. Ele foi desenvolvido com foco em autenticação de usuários, seguindo boas práticas de organização e alocação de pessoas.
 ##  Estrutura de Pastas
