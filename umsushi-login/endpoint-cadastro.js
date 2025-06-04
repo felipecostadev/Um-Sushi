@@ -1,7 +1,38 @@
 import express from 'express';
 
-let cadastros = [];
-let nextId = 1;
+let cadastros = [
+  {
+    id: 1,
+    nome: 'João Silva',
+    email: 'joao@example.com',
+    numero: '11987654321',
+    data_de_nascimento: '1990-01-15',
+    genero: 'Masculino',
+    senha: 'senhaHash1',
+    cep: '01000-000',
+    logradouro: 'Rua Principal',
+    bairro: 'Centro',
+    numero_da_residencia: '123A',
+    complemento: 'Apto 101'
+  },
+  {
+    id: 2,
+    nome: 'Maria Santos',
+    email: 'maria@example.com',
+    numero: '21998765432',
+    data_de_nascimento: '1985-05-20',
+    genero: 'Feminino',
+    senha: 'senhaHash2',
+    cep: '02000-000',
+    logradouro: 'Avenida Secundária',
+    bairro: 'Bairro Novo',
+    numero_da_residencia: '45B',
+    complemento: 'Casa Fundos'
+  }
+];
+
+
+let nextId = cadastros.length > 0 ? Math.max(...cadastros.map(c => c.id)) + 1 : 1;
 
 const app = express();
 app.use(express.json());
