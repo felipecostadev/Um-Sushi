@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 let cadastros = [
   {
@@ -32,25 +33,12 @@ let cadastros = [
 ];
 let nextId = cadastros.length > 0 ? Math.max(...cadastros.map(c => c.id)) + 1 : 1;
 
-
-
-
-const express = require('express');
-const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000; // Use a porta fornecida pelo ambiente de hospedagem
 
-// Use variáveis de ambiente para o CORS em produção
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3001';
-
 app.use(cors({
-  origin: FRONTEND_URL, // Agora usa a variável de ambiente
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'] // Cabeçalhos permitidos
+  origin: process.env.FRONTEND_URL || 'http://localhost:3001'
 }));
-
-
-
 
 
 app.use(express.json());
