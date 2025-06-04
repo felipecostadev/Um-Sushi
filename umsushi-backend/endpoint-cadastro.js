@@ -16,6 +16,7 @@ let cadastros = [
     numero_da_residencia: '123A',
     complemento: 'Apto 101'
   },
+  
   {
     id: 2,
     nome: 'Maria Santos',
@@ -172,6 +173,6 @@ return res.status(200).json({ mensagem: `Cadastro com ID ${id} deletado com suce
 
 
 // iniciar servidor //
-app.listen(3000, () => {
-  console.log('Servidor rodando em http://localhost:3000'); 
+app.listen(port, () => { 
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
