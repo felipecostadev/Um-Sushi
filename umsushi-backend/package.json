@@ -1,0 +1,17 @@
+{
+  "name": "umsushi-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node endpoint-cadastro.js",
+    "dev": "nodemon endpoint-cadastro.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+ 
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  }
+}
