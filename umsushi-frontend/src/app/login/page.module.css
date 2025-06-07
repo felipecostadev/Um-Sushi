@@ -1,0 +1,120 @@
+.loginPage {
+    background-image: url('/imgs/tipos-de-sushi-uramaki.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.loginContainer{
+    height: 100vh;
+    width: 900px;
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #014c5b 0%, #014c5b 40%, #c53739 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+
+.loginContainer h1 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+    text-align: center;
+}
+
+.loginHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+
+.loginContainer label {
+  margin-left: 10px;
+}
+
+.loginForm {
+    background-color: #d7dadc;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+    width: 600px;
+}
+
+.loginForm h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formGroup input {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btnsubmit,
+.btnregister {
+    background-color: #ffffff; /* .btnsubmit */
+    color: rgb(0, 0, 0);      /* .btnsubmit */
+    background-color: #014c5b; /* .btnregister override */
+    color: white;              /* .btnregister override */
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btnsubmit {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.btnregister {
+    background-color: #014c5b;
+    color: white;
+}
+
