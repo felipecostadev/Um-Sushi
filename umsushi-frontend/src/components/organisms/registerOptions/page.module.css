@@ -1,0 +1,46 @@
+.registerPage {
+    background-image: url('/imgs/sushi2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.registerContainer {
+    height: 100vh;
+    width: 900px;
+    margin-left: 0;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #014c5b 0%, #014c5b 40%, #c53739 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+
+.registerForm {
+    background-color: #d7dadc;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+    width: 600px;
+}
+
+.googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 2px solid #797c7e;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 20px;
+}
+
